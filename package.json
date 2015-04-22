@@ -61,6 +61,7 @@
     "merge-stream": "^0.1.7",
     "pretty-hrtime": "~1.0.0",
     "require-dir": "^0.1.0",
+    "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "~1.0.0",
     "watchify": "^2.4.0"
   },

@@ -18,6 +18,8 @@ var handleErrors = require('../util/handleErrors');
 var source       = require('vinyl-source-stream');
 var config       = require('../config').browserify;
 var _            = require('lodash');
+var buffer       = require('vinyl-buffer');
+var sourcemaps   = require('gulp-sourcemaps');
 
 var browserifyTask = function(devMode) {
 
@@ -39,14 +41,12 @@ var browserifyTask = function(devMode) {
       bundleLogger.start(bundleConfig.outputName);
 
       return b
-        .bundle()
-        // Report compile errors
-        .on('error', handleErrors)
-        // Use vinyl-source-stream to make the
-        // stream gulp compatible. Specify the
-        // desired output filename here.
+        .bundle()        
         .pipe(source(bundleConfig.outputName))
-        // Specify the output destination
+        .pipe(buffer())
+        .pipe(sourcemaps.init())
+        .on('error', handleErrors)
+        .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(bundleConfig.dest))
         .pipe(browserSync.reload({
           stream: true

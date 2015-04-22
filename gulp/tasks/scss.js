@@ -10,9 +10,9 @@ gulp.task('scss', function () {
   return gulp.src(config.src)
     .pipe(sourcemaps.init())
     .pipe(sass(config.settings))
-    .on('error', handleErrors)
-    .pipe(sourcemaps.write())
     .pipe(autoprefixer({ browsers: ['last 2 version'] }))
+    .on('error', handleErrors)
+    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(config.dest))
     .pipe(browserSync.reload({stream:true}));
 });
